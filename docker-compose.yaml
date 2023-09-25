@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  worker: 
+    build: .
+    container_name: chealth
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    restart: 'always'
+    volumes:
+      - .:/django/apps/
+  db:
+    image: postgres
+    container_name: cpostgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: 'always'
